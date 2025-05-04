@@ -9,8 +9,8 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
-    private long id;
+public class PersonaDTO {
+    private Long id;
     private String nom;
     private String cognom1;
     private String cognom2;

@@ -12,9 +12,10 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="persona")
-public class UserEntity {
+public class PersonaEntity {
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nom;
     private String cognom1;
     private String cognom2;

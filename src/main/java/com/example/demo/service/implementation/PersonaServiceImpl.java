@@ -1,9 +1,9 @@
 package com.example.demo.service.implementation;
 
-import com.example.demo.persistence.dao.interfaces.IUserDAO;
-import com.example.demo.persistence.entity.UserEntity;
-import com.example.demo.presentation.dto.UserDTO;
-import com.example.demo.service.interfaces.IUserService;
+import com.example.demo.persistence.dao.interfaces.IPersonaDAO;
+import com.example.demo.persistence.entity.PersonaEntity;
+import com.example.demo.presentation.dto.PersonaDTO;
+import com.example.demo.service.interfaces.IPersonaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,40 +13,40 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl implements IUserService {
+public class PersonaServiceImpl implements IPersonaService {
 
     @Autowired
-    private IUserDAO userDAO;
+    private IPersonaDAO userDAO;
 
     @Override
-    public List<UserDTO> findAll() {
+    public List<PersonaDTO> findAll() {
         ModelMapper modelMapper = new ModelMapper();
 
         return this.userDAO.findAll()
                 .stream()
-                .map(entity -> modelMapper.map(entity, UserDTO.class))
+                .map(entity -> modelMapper.map(entity, PersonaDTO.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public UserDTO findById(Long id) {
+    public PersonaDTO findById(Long id) {
 
-        Optional<UserEntity> userEntity = this.userDAO.findById(id);
+        Optional<PersonaEntity> userEntity = this.userDAO.findById(id);
 
         if(userEntity.isPresent()) {
             ModelMapper modelMapper = new ModelMapper();
-            UserEntity current = userEntity.get();
-            return modelMapper.map(current, UserDTO.class);
+            PersonaEntity current = userEntity.get();
+            return modelMapper.map(current, PersonaDTO.class);
         } else {
-            return new UserDTO();
+            return new PersonaDTO();
         }
     }
 
     @Override
-    public UserDTO createUser(UserDTO userDTO) {
+    public PersonaDTO createUser(PersonaDTO userDTO) {
         try{
             ModelMapper modelMapper = new ModelMapper();
-            UserEntity userEntity = modelMapper.map(userDTO, UserEntity.class);
+            PersonaEntity userEntity = modelMapper.map(userDTO, PersonaEntity.class);
             this.userDAO.saveUser(userEntity);
 
             return userDTO;
@@ -56,12 +56,12 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserDTO updateUser(UserDTO userDTO, Long id) {
+    public PersonaDTO updateUser(PersonaDTO userDTO, Long id) {
 
-        Optional<UserEntity> userEntity = this.userDAO.findById(id);
+        Optional<PersonaEntity> userEntity = this.userDAO.findById(id);
 
         if(userEntity.isPresent()) {
-            UserEntity currentUserEntity = userEntity.get();
+            PersonaEntity currentUserEntity = userEntity.get();
             currentUserEntity.setNom(userDTO.getNom());
             currentUserEntity.setCognom1(userDTO.getCognom1());
             currentUserEntity.setCognom2(userDTO.getCognom2());
@@ -72,7 +72,7 @@ public class UserServiceImpl implements IUserService {
             this.userDAO.updateUser(currentUserEntity);
 
             ModelMapper modelMapper = new ModelMapper();
-            return modelMapper.map(currentUserEntity, UserDTO.class);
+            return modelMapper.map(currentUserEntity, PersonaDTO.class);
         } else {
             throw new IllegalArgumentException("User not found");
         }
@@ -81,10 +81,10 @@ public class UserServiceImpl implements IUserService {
     @Override
     public String deleteUser(Long id) {
 
-        Optional<UserEntity> userEntity = this.userDAO.findById(id);
+        Optional<PersonaEntity> userEntity = this.userDAO.findById(id);
 
         if(userEntity.isPresent()) {
-            UserEntity currentUSerEntity = userEntity.get();
+            PersonaEntity currentUSerEntity = userEntity.get();
             this.userDAO.deleteUSer(currentUSerEntity);
             return "The User with ID: " + id + " was deleted";
         } else {
