@@ -44,7 +44,6 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDTO createUser(UserDTO userDTO) {
-
         try{
             ModelMapper modelMapper = new ModelMapper();
             UserEntity userEntity = modelMapper.map(userDTO, UserEntity.class);
@@ -63,10 +62,12 @@ public class UserServiceImpl implements IUserService {
 
         if(userEntity.isPresent()) {
             UserEntity currentUserEntity = userEntity.get();
-            currentUserEntity.setName(userDTO.getName());
-            currentUserEntity.setLastName(userDTO.getLastName());
+            currentUserEntity.setNom(userDTO.getNom());
+            currentUserEntity.setCognom1(userDTO.getCognom1());
+            currentUserEntity.setCognom2(userDTO.getCognom2());
+            currentUserEntity.setNaixement(userDTO.getNaixement());
+            currentUserEntity.setTelefon(userDTO.getTelefon());
             currentUserEntity.setEmail(userDTO.getEmail());
-            currentUserEntity.setAge(userDTO.getAge());
 
             this.userDAO.updateUser(currentUserEntity);
 

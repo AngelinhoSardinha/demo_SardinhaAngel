@@ -3,22 +3,24 @@ package com.example.demo.persistence.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @Builder
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="users")
+@Table(name="persona")
 public class UserEntity {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String name;
+    private String nom;
+    private String cognom1;
+    private String cognom2;
 
-    @Column(name="last_name")
-    private String lastName;
+    @Column(name="data_naix")
+    private Date naixement;
+    private String telefon;
     private String email;
-    private byte age;
 }
